@@ -1,8 +1,11 @@
 # SLOW LORIS CLI
 
+## Installation
+    npm i @eidyz/slowloris -g
+
 ## Usage
     Usage: slowloris [options]
     
     Options:
-      --host=<host>        IP Address
-      --port=[port]        Port
+      -h <host>       IP Address
+      -p [port]        Port
