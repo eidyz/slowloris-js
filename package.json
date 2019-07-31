@@ -1,0 +1,22 @@
+{
+  "name": "slowloris",
+  "version": "1.0.0",
+  "description": "SLOW LORIS CLI",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eidyz/slowloris-js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eidyz/slowloris-js/issues"
+  },
+  "homepage": "https://github.com/eidyz/slowloris-js#readme",
+  "dependencies": {
+    "minimist": "^1.2.0"
+  }
+}
