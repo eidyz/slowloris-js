@@ -1,6 +1,8 @@
 # SLOW LORIS CLI
 
 ## Usage
-`
-slowloris --host=0.0.0.0 --port=80
-`
+    Usage: slowloris [options]
+    
+    Options:
+      --host=<host>        IP Address
+      --port=[port]        Port
