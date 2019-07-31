@@ -1,4 +1,4 @@
-// TODO: make host and port configurable with arguments 
+#!/usr/bin/env node
 
 const net = require("net");
 const argv = require('minimist')(process.argv.slice(2));
@@ -8,8 +8,10 @@ const validPort = require('./util/validations').validPort
 const maxConnections = 500;
 const connections = [];
 
-const host = argv.host;
-const port = argv.port;
+const host = argv.host || argv.h;
+const port = argv.port || argv.p;
+
+console.log(argv);
 
 class Connection {
   constructor(h, p) {
@@ -87,6 +89,6 @@ if (host && port) {
     console.log("You have entered invalid host or port")
   }
 } else {
-  console.log("Usage: slowloris --host=1.0.0.0 --port=8080")
+  console.log("Usage: slowloris -h 127.0.0.1 -p 8080")
 }
 
