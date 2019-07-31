@@ -81,7 +81,7 @@ const slowLoris = () => setInterval(() => {
       "Active connections: " + connections.length + " / " + maxConnections
     );
   }
-}, 500);
+}, timeout);
 
 if (host && port) {
   if (validIp(host) && validPort(port)) {
