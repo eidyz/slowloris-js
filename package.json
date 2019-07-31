@@ -1,6 +1,6 @@
 {
   "name": "@eidyz/slowloris",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "SLOW LORIS CLI",
   "main": "app.js",
   "scripts": {
