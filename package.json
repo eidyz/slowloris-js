@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/eidyz/slowloris-js#readme",
   "dependencies": {
+    "dns-sync": "^0.2.0",
     "minimist": "^1.2.0"
   }
 }
